@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+class TIME {
+    int hr, min, sec;
+
+public:
+    void getdata() {
+        cout << "Enter hours: ";
+        cin >> hr;
+        cout << "Enter minutes: ";
+        cin >> min;
+        cout << "Enter seconds: ";
+        cin >> sec;
+    }
+
+  
+    void showdata() {
+        cout << hr << " hr : " << min << " min : " << sec << " sec" << endl;
+    }
+
+    TIME operator+(TIME t) {
+        TIME temp;
+        temp.sec = sec + t.sec;
+        temp.min = min + t.min + temp.sec / 60;
+        temp.sec %= 60;
+        temp.hr = hr + t.hr + temp.min / 60;
+        temp.min %= 60;
+        return temp;
+    }
+
+    void operator++(int) {
+        sec++;
+        if (sec >= 60) {
+            sec = 0;
+            min++;
+        }
+        if (min >= 60) {
+            min = 0;
+            hr++;
+        }
+    }
+};
+
+int main() {
+    TIME t1, t2, t3;
+
+    cout << "Enter time 1:" << endl;
+    t1.getdata();
+
+    cout << "Enter time 2:" << endl;
+    t2.getdata();
+
+    t3 = t1 + t2; // addition
+    t1++;         // increment seconds
+
+    cout << "\nResult of addition (t3): ";
+    t3.showdata();
+
+    cout << "After increment (t1): ";
+    t1.showdata();
+
+    return 0;
+}
